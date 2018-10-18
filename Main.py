@@ -1,7 +1,14 @@
-#!/usr/bin/env python
-#Imports
-
+import visionApi
+import sensors
 #Main function
+
+currentRecipie = []
+
+def ingredientSelection():
+	labels 	= visionApi.getLabels
+	density = sensors.getDensity
+
+	
 
 '''
 ###################################################################################
@@ -27,7 +34,7 @@ function ingredientSelection(){
 	
 	Search database for a ingredient approximately matching tags + physical properties
 	
-	ingredient = database.match([tags, properties]);
+	ingredient = database.match([tags, properties]);	
 
 	if(!ingredient){
 		newIngredient.name = userInput();

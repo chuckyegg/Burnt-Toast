@@ -15,7 +15,6 @@ def getDensity():
 	print("Density: " + str(density))
 	return density
 
-getDensity()
 '''
 ###################################################################################
 This file manages all sensor readings and parsing
