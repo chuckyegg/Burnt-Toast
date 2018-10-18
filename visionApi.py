@@ -27,17 +27,10 @@ def getLabels():
 	image = types.Image(content=content)
 
 	labelResponse = client.label_detection(image=image)
-	propertyResponse = client.image_properties(image=image)
 
-	properties = propertyResponse.image_properties_annotation
 	labels = labelResponse.label_annotations
 	#Return an array of labels from the vision API
-	print("Properties: ")
-	for item in properties:
-		print(item.description)
-	print("Labels: ")
-	for item in labels:
-		print(item.description)
+	return labels
 
 getLabels()
 
