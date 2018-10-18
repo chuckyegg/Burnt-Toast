@@ -8,7 +8,9 @@ from google.cloud.vision import types
 
 client = vision.ImageAnnotatorClient()
 
-imageDir = webcam.getImage();
+imageDir = webcam.getImage()
+
+print(imageDir + ' Testing')
 
 fileName = os.path.join(
 	os.path.dirname(__file__),
