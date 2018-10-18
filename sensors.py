@@ -12,8 +12,8 @@ def getDensity():
 	mass = getMass();
 	volume = getVolume();
 	density = mass/volume
-	print("Density: " + density)
-	return Density
+	print("Density: " + str(density))
+	return density
 
 getDensity()
 '''
