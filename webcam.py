@@ -11,7 +11,6 @@ def getImage():
 	imageDir = '/home/pi/Programming/Burnt-Toast/temp/' + name
 	return imageDir
 
-print(getImage())
 '''
 ###################################################################################
 Controls the webcam
