@@ -22,7 +22,7 @@ with io.open(fileName, 'rb') as imageFile:
 image = types.Image(content=content)
 
 response = client.label_detection(image=image)
-labels = response.lanel_annotations
+labels = response.label_annotations
 
 print('Labels:')
 for label in labels:
