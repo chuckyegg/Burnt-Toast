@@ -6,7 +6,7 @@ import webcam
 from google.cloud import vision
 from google.cloud.vision import types
 
-client - vision.ImageAnnotatorClient()
+client = vision.ImageAnnotatorClient()
 
 imageDir = webcam.getImage();
 
