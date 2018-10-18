@@ -1,11 +1,11 @@
 def getMass():
 	mass = float(input("What is the mass? "))
-	print("Mass: " + mass)
+	print("Mass: " + str(mass))
 	return mass
 
 def getVolume():
 	volume = float(input("What is the volume? "))
-	print("Volume: " + volume)
+	print("Volume: " + str(volume))
 	return volume
 
 def getDensity():
