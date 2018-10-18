@@ -3,12 +3,12 @@ def getMass():
 	print("Mass: " + mass)
 	return mass
 
-def getVolume()
+def getVolume():
 	volume = input("What is the volume? ")
 	print("Volume: " + volume)
 	return volume
 
-def getDensity()
+def getDensity():
 	mass = getMass();
 	volume = getVolume();
 	density = mass/volume
