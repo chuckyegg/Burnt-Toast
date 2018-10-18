@@ -34,10 +34,10 @@ def getLabels():
 	#Return an array of labels from the vision API
 	print("Properties: ")
 	for item in properties:
-		print(item)
+		print(item.description)
 	print("Labels: ")
 	for item in labels:
-		print(item)
+		print(item.description)
 
 getLabels()
 
