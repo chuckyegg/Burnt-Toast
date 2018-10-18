@@ -1,10 +1,10 @@
 def getMass():
-	mass = input("What is the mass? ")
+	mass = float(input("What is the mass? "))
 	print("Mass: " + mass)
 	return mass
 
 def getVolume():
-	volume = input("What is the volume? ")
+	volume = float(input("What is the volume? "))
 	print("Volume: " + volume)
 	return volume
 
