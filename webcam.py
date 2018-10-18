@@ -8,7 +8,7 @@ def getImage():
 
 	urllib.request.urlretrieve(url, '/home/pi/Programming/Burnt-Toast/temp/' + name)
 
-	imageDir = '/home/pi/Programming/Burnt-Toast/temp' + name
+	imageDir = '/home/pi/Programming/Burnt-Toast/temp/' + name
 	return imageDir
 
 print(getImage())
