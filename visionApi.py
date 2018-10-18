@@ -32,8 +32,12 @@ def getLabels():
 	properties = propertyResponse.image_properties_annotation
 	labels = labelResponse.label_annotations
 	#Return an array of labels from the vision API
-	print("Properties: " + properties)
-	print("Labels: " + labels)
+	print("Properties: ")
+	for item in properties:
+		print(item)
+	print("Labels: ")
+	for item in labels:
+		print(item)
 
 getLabels()
 
