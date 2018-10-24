@@ -1,13 +1,8 @@
-import visionApi
-import sensors
 #Main function
 
 currentRecipie = []
 
 def ingredientSelection():
-	labels 	= visionApi.getLabels
-	density = sensors.getDensity
-
 	
 
 '''
