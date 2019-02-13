@@ -1,0 +1,19 @@
+{
+  "name": "ice-cream-testing",
+  "version": "1.0.0",
+  "description": "Code to quickly run tests on the ice cream machine",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10",
+    "serialport": "^7.1.4",
+    "webcamjs": "^1.0.25"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

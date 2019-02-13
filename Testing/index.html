@@ -1,0 +1,183 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Ingredient Experimentation</title>
+	<style type="text/css">
+		body { font-family: Helvetica, sans-serif; }
+		h2, h3 { margin-top:0; }
+		form { margin-top: 15px; }
+		form > input { margin-right: 15px; }
+		#results { float:right; margin:20px; padding:20px; border:1px solid; background:#ccc; }
+	</style>
+	
+</head>
+<body>
+	
+	<h1>Ingredient Experimentation</h1>
+	<h3>Input the information for each ingredient, take a picture, then begin experiment</h3>
+	
+	<div id="my_camera"></div>
+	
+	<!-- First, include the Webcam.js JavaScript Library -->
+	<script type="text/javascript" src="../webcam.min.js"></script>
+	
+	<!-- Configure a few settings and attach camera -->
+	<script language="JavaScript">
+		Webcam.set({
+			width: 320,
+			height: 240,
+			dest_width: 1240,
+			dest_height: 720,
+			image_format: 'jpeg',
+			jpeg_quality: 90
+		});
+		Webcam.attach( '#my_camera' );
+	</script>
+        <div>
+            <form id="ingredientForm" oninput="density.value=parseInt(mass.value)+parseInt(volume.value)" method="POST" action="http://uni-server.nano-wire.co.uk:3000/imageSubmission">
+                <label for "ingredientName">Ingredient Name:</label>
+                <input type=input id="ingredientName" name="ingredientName">
+                <label for "ingredientType">Ingredient Type:</label>
+                <input type=input id="ingredientType" name="ingredientType"><br>
+                <label for="volume">Volume(mL):</label>
+                <input type=input id="volume" value="0" name="volume">
+                <label for="mass">Mass(kg):</label>
+                <input type=input id="mass" value="0" name="mass"><br>
+                <input type=button value="Submit" onClick="ingredientSubmission()">
+		<input type="hidden" id="picture" value="" name="image">
+		<input type="hidden" id="density" value="" name="density">
+		
+            </form>
+
+	</div>
+	<br><hr>
+	<div id="recipe">
+		<div style="position:relative; width:100%; height:20px">
+			<form>
+				<input type=button value="Start" onClick="startSerial()">
+				<input type=button value="Stop" onClick="stopSerial()">
+				<input type=button value="Submit" onClick="experimentSubmission()">
+			</form>
+		</div>
+		<br><hr>
+		<div style="width:20%; position:fixed; left:0%">
+			<h3>Name</h3>
+			<hr>
+			<ul id="ingredientNames">
+			</ul>
+		</div>
+		<div style="width:20%; position:fixed; left:20%">
+			<h3>Type</h3>
+			<hr>
+			<ul id="ingredientTypes">
+			</ul>
+		</div>
+		<div style="width:20%; position:fixed; right:40%">
+			<h3>Mass</h3>
+			<hr>
+			<ul id="massList">
+			</ul>
+		</div>
+		<div style="width:20%; position:fixed; right:20%">
+			<h3>Volume</h3>
+			<hr>
+			<ul id="volumeList">
+			</ul>
+		</div>
+		<div style="width:20%; position:fixed; right:0%">
+			<h3>Density</h3>
+			<hr>
+			<ul id="densityList">
+			</ul>
+		</div>
+		<form id="serial">
+			<input type="hidden" id="serial" name="serial" value="">
+		</form>	
+	</div>
+	<script language="JavaScript">
+			function ingredientSubmission() {
+			
+				var ingredientName = document.getElementById("ingredientName").value;
+				var ingredientType = document.getElementById("ingredientType").value;
+				var mass = document.getElementById("mass").value;
+				var volume = document.getElementById("volume").value;
+				var density = mass/volume;
+				
+				
+				var iNameNode = document.createElement("LI");
+				var iNameNoden = document.createTextNode(ingredientName);
+				iNameNode.appendChild(iNameNoden);
+				
+				var iTypeNode = document.createElement("LI");
+				var iTypeNoden = document.createTextNode(ingredientType);
+				iTypeNode.appendChild(iTypeNoden);
+				
+				var massNode = document.createElement("LI");
+				var massNoden = document.createTextNode(mass);
+				massNode.appendChild(massNoden);
+				
+				var volumeNode = document.createElement("LI");
+				var volumeNoden = document.createTextNode(volume);
+				volumeNode.appendChild(volumeNoden);
+	
+				var densityNode = document.createElement("LI");
+				var densityNoden = document.createTextNode(density);
+				densityNode.appendChild(densityNoden);
+	
+				document.getElementById("ingredientNames").appendChild(iNameNode);
+				document.getElementById("ingredientTypes").appendChild(iTypeNode);
+				document.getElementById("massList").appendChild(massNode);
+				document.getElementById("volumeList").appendChild(volumeNode);
+				document.getElementById("densityList").appendChild(densityNode);
+	
+				Webcam.snap( function(data_uri) {
+					var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+					document.getElementById("picture").value = raw_image_data;
+				} );
+				
+				//document.getElementById("ingredientForm").submit();
+			}
+			
+			function startSerial(){
+				$.post("http://localhost:3000/start", function(data, status){
+					console.log(data);
+				})
+			}
+			
+			function stopSerial(){
+				$.post("http://localhost:3000/stop", function(data, status){
+					console.log(data);
+					document.getElementById("serial").value = data;
+				})
+			}
+			
+			function experimentSubmission(){
+				ingredients = [];
+				results = document.getElementById("serial").value;
+				//console.log($("#densityList").children());
+				
+				for(i = 0; i < $("#densityList").children().length; i++){
+					var density = $("#densityList").children()[i].textContent;
+					var volume = $("#volumeList").children()[i].textContent;
+					var name = $("#ingredientNames").children()[i].textContent;
+					var mass = $("#massList").children()[i].textContent;
+					var type = $("#ingredientTypes").children()[i].textContent;
+
+					ingredients.push({name: name, type: type, mass: mass, volume: volume, density: density});
+				}
+				console.log(ingredients);
+				var experiment = {ingredients: ingredients, results: results};
+				console.log(experiment);
+				$.post("http://uni-server.nano-wire.co.uk:3000/experimentSubmission", JSON.stringify(experiment), function(data, status){
+					console.log(data);
+					console.log(status);
+				})
+			}
+		</script>
+</body>
+</html>
