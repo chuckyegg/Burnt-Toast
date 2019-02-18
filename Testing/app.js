@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var serialArray = [];
 
-const port = new serialPort('COM8',{
+const port = new serialPort('COM3',{
     baudRate: 115200,
     autoOpen: false
 }, function (err){
@@ -21,6 +21,7 @@ const port = new serialPort('COM8',{
 //parser.on('readable', console.log)
 port.on('data',function(data){
     serialArray.push(data.toString('utf8'));
+    console.log(data.toSring('utf8'));
 })
 
 app.post('/start', async function(req, res){
