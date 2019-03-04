@@ -4,6 +4,7 @@
   "description": "Code to quickly run tests on the ice cream machine",
   "main": "app.js",
   "dependencies": {
+    "app.js": "0.0.21",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "nodemon": "^1.18.10",
