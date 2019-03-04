@@ -21,7 +21,7 @@ const port = new serialPort('COM3',{
 //parser.on('readable', console.log)
 port.on('data',function(data){
     serialArray.push(data.toString('utf8'));
-    console.log(data.toSring('utf8'));
+    console.log(data.toString('utf8'));
 })
 
 app.post('/start', async function(req, res){
